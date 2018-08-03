@@ -21,6 +21,19 @@ class MinesweeperGame {
     return this.grid;
   }
 
+  revealGrid() {
+    for (let i = 0; i < this.matrix.length; i += 1) {
+      const row = this.matrix[i];
+      for (let j = 0; j < row.length; j += 1) {
+        const val = row[j];
+        if (val === 1) {
+          this.grid[i][j] = 'B';
+        }
+      }
+    }
+    return this.grid;
+  }
+
   checkCell(row, col) {
     let counter = 0;
     for (let i = row - 1; i <= row + 1; i += 1) {

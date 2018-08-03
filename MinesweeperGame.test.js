@@ -131,3 +131,32 @@ describe(`MinesweeperGame's checkCell method`, () => {
     expect(game.grid).toEqual(expectedGrid);
   });
 });
+
+describe(`MinesweeperGame's revealGrid method`, () => {
+  // prettier-ignore
+  const bombMatrix = [
+    [0, 1, 0, 0], 
+    [0, 1, 1, 0], 
+    [0, 0, 0, 1], 
+    [0, 0, 0, 1]
+  ];
+
+  let game;
+
+  beforeAll(() => {
+    game = new MinesweeperGame();
+  });
+
+  test('should reveal the bombs in the grid.', () => {
+    game.setGameBoard(bombMatrix);
+    const result = game.revealGrid();
+    // prettier-ignore
+    const expectedGrid = [
+      ['_', 'B', '_', '_'],
+      ['_', 'B', 'B', '_'],
+      ['_', '_', '_', 'B'],
+      ['_', '_', '_', 'B'],
+    ];
+    expect(result).toEqual(expectedGrid);
+  });
+});
