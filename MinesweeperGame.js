@@ -20,6 +20,23 @@ class MinesweeperGame {
     this.grid = grid;
     return this.grid;
   }
+
+  checkCell(row, col) {
+    let counter = 0;
+    for (let i = row - 1; i <= row + 1; i += 1) {
+      const rowOfVals = this.matrix[i];
+      if (rowOfVals) {
+        for (let j = col - 1; j <= col + 1; j += 1) {
+          const value = rowOfVals[j];
+          if (Number.isInteger(value) && value === 1) {
+            counter += 1;
+          }
+        }
+      }
+    }
+    this.grid[row][col] = counter.toString();
+    return this.grid;
+  }
 }
 
 module.exports = MinesweeperGame;
