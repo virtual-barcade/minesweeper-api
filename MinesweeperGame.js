@@ -34,7 +34,7 @@ class MinesweeperGame {
     return this.grid;
   }
 
-  checkCell(row, col) {
+  countBombs(row, col) {
     let counter = 0;
     for (let i = row - 1; i <= row + 1; i += 1) {
       const rowOfVals = this.matrix[i];
@@ -47,7 +47,11 @@ class MinesweeperGame {
         }
       }
     }
-    this.grid[row][col] = counter.toString();
+    return counter;
+  }
+
+  checkCell(row, col) {
+    this.grid[row][col] = this.countBombs(row, col).toString();
     return this.grid;
   }
 }
