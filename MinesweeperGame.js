@@ -36,11 +36,11 @@ class MinesweeperGame {
 
   countBombs(row, col) {
     let counter = 0;
-    for (let i = row - 1; i <= row + 1; i += 1) {
-      const rowOfVals = this.matrix[i];
+    for (let i = -1; i <= 1; i += 1) {
+      const rowOfVals = this.matrix[row + i];
       if (rowOfVals) {
-        for (let j = col - 1; j <= col + 1; j += 1) {
-          const value = rowOfVals[j];
+        for (let j = -1; j <= 1; j += 1) {
+          const value = rowOfVals[col + j];
           if (Number.isInteger(value) && value === 1) {
             counter += 1;
           }
