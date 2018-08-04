@@ -74,64 +74,6 @@ describe(`MinesweeperGame's setGameBoard method`, () => {
   });
 });
 
-describe(`MinesweeperGame's checkCell method`, () => {
-  // prettier-ignore
-  const bombMatrix = [
-    [0, 1, 0, 0], 
-    [0, 1, 1, 0], 
-    [0, 0, 0, 1], 
-    [0, 0, 0, 1]
-  ];
-
-  let game;
-
-  beforeAll(() => {
-    game = new MinesweeperGame();
-  });
-
-  test('should return a grid showing the number of bombs surrounding the input cell if input cell is not a bomb.', () => {
-    game.setGameBoard(bombMatrix);
-    game.checkCell(0, 0);
-    // prettier-ignore
-    const expectedGrid = [
-      ['2', '_', '_', '_'],
-      ['_', '_', '_', '_'],
-      ['_', '_', '_', '_'],
-      ['_', '_', '_', '_'],
-    ];
-    expect(game.grid).toEqual(expectedGrid);
-  });
-});
-
-describe(`MinesweeperGame's checkCell method`, () => {
-  // prettier-ignore
-  const bombMatrix = [
-    [0, 1, 0, 0], 
-    [0, 1, 1, 0], 
-    [0, 0, 0, 1], 
-    [0, 0, 0, 1]
-  ];
-
-  let game;
-
-  beforeAll(() => {
-    game = new MinesweeperGame();
-  });
-
-  test('should return a grid showing the number of bombs surrounding the input cell if input cell is not a bomb.', () => {
-    game.setGameBoard(bombMatrix);
-    game.checkCell(0, 2);
-    // prettier-ignore
-    const expectedGrid = [
-      ['_', '_', '3', '_'],
-      ['_', '_', '_', '_'],
-      ['_', '_', '_', '_'],
-      ['_', '_', '_', '_'],
-    ];
-    expect(game.grid).toEqual(expectedGrid);
-  });
-});
-
 describe(`MinesweeperGame's revealGrid method`, () => {
   // prettier-ignore
   const bombMatrix = [
@@ -158,5 +100,63 @@ describe(`MinesweeperGame's revealGrid method`, () => {
       ['_', '_', '_', 'B'],
     ];
     expect(result).toEqual(expectedGrid);
+  });
+});
+
+describe(`MinesweeperGame's checkCell method`, () => {
+  // prettier-ignore
+  let bombMatrix;
+  let game;
+
+  beforeAll(() => {
+    // prettier-ignore
+    bombMatrix = [
+      [0, 1, 0, 0], 
+      [0, 1, 1, 0], 
+      [0, 0, 0, 1], 
+      [0, 0, 0, 1]
+    ];
+    game = new MinesweeperGame();
+  });
+
+  test('should return a grid showing the number of bombs surrounding the input cell if input cell is not a bomb.', () => {
+    game.setGameBoard(bombMatrix);
+    game.checkCell(0, 0);
+    // prettier-ignore
+    const expectedGrid = [
+      ['2', '_', '_', '_'],
+      ['_', '_', '_', '_'],
+      ['_', '_', '_', '_'],
+      ['_', '_', '_', '_'],
+    ];
+    expect(game.grid).toEqual(expectedGrid);
+  });
+
+  test('should return a grid showing the number of bombs surrounding the input cell if input cell is not a bomb.', () => {
+    game.setGameBoard(bombMatrix);
+    game.checkCell(0, 2);
+    // prettier-ignore
+    const expectedGrid = [
+      ['_', '_', '3', '_'],
+      ['_', '_', '_', '_'],
+      ['_', '_', '_', '_'],
+      ['_', '_', '_', '_'],
+    ];
+    expect(game.grid).toEqual(expectedGrid);
+  });
+
+  test('should return a grid revealing the bombs if input cell is a bomb.', () => {
+    game.setGameBoard(bombMatrix);
+    game.checkCell(0, 2);
+    game.checkCell(2, 2);
+    game.checkCell(0, 1);
+    // prettier-ignore
+    const expectedGrid = [
+      ['_', 'B', '3', '_'],
+      ['_', 'B', 'B', '_'],
+      ['_', '_', '4', 'B'],
+      ['_', '_', '_', 'B'],
+    ];
+    expect(game.grid).toEqual(expectedGrid);
   });
 });

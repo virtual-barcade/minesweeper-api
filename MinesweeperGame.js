@@ -51,6 +51,10 @@ class MinesweeperGame {
   }
 
   checkCell(row, col) {
+    if (this.matrix[row][col] === 1) {
+      this.status = 'lost';
+      return this.revealGrid();
+    }
     this.grid[row][col] = this.countBombs(row, col).toString();
     return this.grid;
   }
