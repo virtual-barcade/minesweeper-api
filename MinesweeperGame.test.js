@@ -3,16 +3,23 @@
 const MinesweeperGame = require('./MinesweeperGame');
 
 describe(`MinesweeperGame's constructor`, () => {
+  // prettier-ignore
+  const bombMatrix = [
+    [0, 1, 0, 0], 
+    [0, 1, 1, 0], 
+    [0, 0, 0, 1], 
+    [0, 0, 0, 1]
+  ];
+
   let game;
 
   beforeAll(() => {
-    game = new MinesweeperGame();
+    game = new MinesweeperGame(bombMatrix);
   });
 
-  test('should initialize the status, grid, and matrix properties as null.', () => {
-    expect(game.status).toBe(null);
-    expect(game.grid).toBe(null);
-    expect(game.matrix).toBe(null);
+  test('should correctly initialize the status and matrix properties.', () => {
+    expect(game.status).toBe('in-progress');
+    expect(game._matrix).toBe(bombMatrix);
   });
 });
 
@@ -28,11 +35,11 @@ describe(`MinesweeperGame's initializeGrid method`, () => {
   let game;
 
   beforeAll(() => {
-    game = new MinesweeperGame();
+    game = new MinesweeperGame(bombMatrix);
   });
 
   test('should return a grid representation of the input matrix as an N x M 2D array of underscore strings.', () => {
-    const result = game.initializeGrid(bombMatrix.length, bombMatrix[0].length);
+    const result = game.grid;
     // prettier-ignore
     const expected = [
       ['_', '_', '_', '_'],
@@ -41,36 +48,6 @@ describe(`MinesweeperGame's initializeGrid method`, () => {
       ['_', '_', '_', '_'],
     ];
     expect(result).toEqual(expected);
-  });
-});
-
-describe(`MinesweeperGame's setGameBoard method`, () => {
-  // prettier-ignore
-  const bombMatrix = [
-    [0, 1, 0, 0], 
-    [0, 1, 1, 0], 
-    [0, 0, 0, 1], 
-    [0, 0, 0, 1]
-  ];
-
-  let game;
-
-  beforeAll(() => {
-    game = new MinesweeperGame();
-  });
-
-  test('should set the game properties.', () => {
-    game.setGameBoard(bombMatrix);
-    // prettier-ignore
-    const expectedGrid = [
-      ['_', '_', '_', '_'],
-      ['_', '_', '_', '_'],
-      ['_', '_', '_', '_'],
-      ['_', '_', '_', '_'],
-    ];
-    expect(game.status).toBe('in-progress');
-    expect(game.grid).toEqual(expectedGrid);
-    expect(game.matrix).toBe(bombMatrix);
   });
 });
 
@@ -86,11 +63,10 @@ describe(`MinesweeperGame's revealGrid method`, () => {
   let game;
 
   beforeAll(() => {
-    game = new MinesweeperGame();
+    game = new MinesweeperGame(bombMatrix);
   });
 
   test('should reveal the bombs in the grid.', () => {
-    game.setGameBoard(bombMatrix);
     const result = game.revealGrid();
     // prettier-ignore
     const expectedGrid = [
@@ -108,7 +84,7 @@ describe(`MinesweeperGame's checkCell method`, () => {
   let bombMatrix;
   let game;
 
-  beforeAll(() => {
+  beforeEach(() => {
     // prettier-ignore
     bombMatrix = [
       [0, 1, 0, 0], 
@@ -116,11 +92,10 @@ describe(`MinesweeperGame's checkCell method`, () => {
       [0, 0, 0, 1], 
       [0, 0, 0, 1]
     ];
-    game = new MinesweeperGame();
+    game = new MinesweeperGame(bombMatrix);
   });
 
   test('should return a grid showing the number of bombs surrounding the input cell if input cell is not a bomb.', () => {
-    game.setGameBoard(bombMatrix);
     game.checkCell(0, 0);
     // prettier-ignore
     const expectedGrid = [
@@ -133,7 +108,6 @@ describe(`MinesweeperGame's checkCell method`, () => {
   });
 
   test('should return a grid showing the number of bombs surrounding the input cell if input cell is not a bomb.', () => {
-    game.setGameBoard(bombMatrix);
     game.checkCell(0, 2);
     // prettier-ignore
     const expectedGrid = [
@@ -146,7 +120,6 @@ describe(`MinesweeperGame's checkCell method`, () => {
   });
 
   test('should return a grid revealing the bombs if input cell is a bomb.', () => {
-    game.setGameBoard(bombMatrix);
     game.checkCell(0, 2);
     game.checkCell(2, 2);
     game.checkCell(0, 1);

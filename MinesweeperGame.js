@@ -1,17 +1,15 @@
+/* eslint-disable no-underscore-dangle */
+
 class MinesweeperGame {
-  constructor() {
-    this.status = null;
-    this.grid = null;
-    this.matrix = null;
-  }
-
-  setGameBoard(matrix) {
+  constructor(matrix) {
+    this._matrix = matrix;
     this.status = 'in-progress';
-    this.grid = this.initializeGrid(matrix.length, matrix[0].length);
-    this.matrix = matrix;
+    this.grid = this._initializeGrid();
   }
 
-  initializeGrid(n, m) {
+  _initializeGrid() {
+    const n = this._matrix.length;
+    const m = this._matrix[0].length;
     const grid = [];
     for (let i = 0; i < n; i += 1) {
       const row = new Array(m).fill('_');
@@ -22,8 +20,8 @@ class MinesweeperGame {
   }
 
   revealGrid() {
-    for (let i = 0; i < this.matrix.length; i += 1) {
-      const row = this.matrix[i];
+    for (let i = 0; i < this._matrix.length; i += 1) {
+      const row = this._matrix[i];
       for (let j = 0; j < row.length; j += 1) {
         const val = row[j];
         if (val === 1) {
@@ -37,7 +35,7 @@ class MinesweeperGame {
   countBombs(row, col) {
     let counter = 0;
     for (let i = -1; i <= 1; i += 1) {
-      const rowOfVals = this.matrix[row + i];
+      const rowOfVals = this._matrix[row + i];
       if (rowOfVals) {
         for (let j = -1; j <= 1; j += 1) {
           const value = rowOfVals[col + j];
@@ -51,7 +49,7 @@ class MinesweeperGame {
   }
 
   checkCell(row, col) {
-    if (this.matrix[row][col] === 1) {
+    if (this._matrix[row][col] === 1) {
       this.status = 'lost';
       return this.revealGrid();
     }
