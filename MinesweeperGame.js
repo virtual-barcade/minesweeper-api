@@ -19,12 +19,11 @@ class MinesweeperGame {
     return this.grid;
   }
 
-  revealGrid() {
+  _revealGrid() {
     for (let i = 0; i < this._matrix.length; i += 1) {
-      const row = this._matrix[i];
-      for (let j = 0; j < row.length; j += 1) {
-        const val = row[j];
-        if (val === 1) {
+      for (let j = 0; j < this._matrix[i].length; j += 1) {
+        const value = this._matrix[i][j];
+        if (value === 1) {
           this.grid[i][j] = 'B';
         }
       }
@@ -32,13 +31,12 @@ class MinesweeperGame {
     return this.grid;
   }
 
-  countBombs(row, col) {
+  _countBombs(row, col) {
     let counter = 0;
     for (let i = -1; i <= 1; i += 1) {
-      const rowOfVals = this._matrix[row + i];
-      if (rowOfVals) {
+      if (this._matrix[row + i]) {
         for (let j = -1; j <= 1; j += 1) {
-          const value = rowOfVals[col + j];
+          const value = this._matrix[row + i][col + j];
           if (Number.isInteger(value) && value === 1) {
             counter += 1;
           }
@@ -51,9 +49,9 @@ class MinesweeperGame {
   checkCell(row, col) {
     if (this._matrix[row][col] === 1) {
       this.status = 'lost';
-      return this.revealGrid();
+      return this._revealGrid();
     }
-    this.grid[row][col] = this.countBombs(row, col).toString();
+    this.grid[row][col] = this._countBombs(row, col).toString();
     return this.grid;
   }
 }

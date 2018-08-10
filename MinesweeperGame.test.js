@@ -67,7 +67,7 @@ describe(`MinesweeperGame's revealGrid method`, () => {
   });
 
   test('should reveal the bombs in the grid.', () => {
-    const result = game.revealGrid();
+    const result = game._revealGrid();
     // prettier-ignore
     const expectedGrid = [
       ['_', 'B', '_', '_'],
