@@ -9,6 +9,8 @@
         "trailingComma": "all",
         "arrayElementNewline": { "multiline": true }
       }
-    ]
+    ],
+    "no-plusplus": "off",
+    "no-param-reassign": "off"
   }
 }
