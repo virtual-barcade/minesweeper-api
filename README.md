@@ -2,7 +2,7 @@
 
 ## Minesweeper Game API / State
 
-I use a 2D array of integers to represent the different states a cell might have.
+The Minesweeper game is internally represented by a 2D array of integers. See below for the range of integer values and their meanings.
 
 ### Cell State Legend:
 
@@ -16,6 +16,8 @@ I use a 2D array of integers to represent the different states a cell might have
 
 - 4: Unvisited, bomb, flagged
 
+A client to this API interacts with the internal board state via the public game grid, a 2D array of strings representing what the player sees when they play the game.
+
 ### API / Usage
 
 Public Methods:
@@ -23,13 +25,13 @@ Public Methods:
 - `checkCell` - Select a cell to sweep for a bomb.
 - `flagCell` - Flag a cell as possibly having a bomb.
 - `cellIsFlagged` - Check if a cell is flagged.
+- `getNumRows` - Returns height of underlying matrix i.e. number of rows.
+- `getNumColumns` - Returns width of underlying matrix i.e. number of columns.
+- `getNumBombs` - Returns number of bombs in matrix.
+- `getGameStatus` - Returns game status e.g. won, lost, or in-progress.
 
 Public Properties:
 
-- `numRows` - Height of underlying matrix i.e. number of rows.
-- `numColumns` - Width of underlying matrix i.e. number of columns.
-- `numBombs` - Number of bombs in matrix.
-- `status` - Game status i.e. won, lost or in-progress.
 - `grid` - A 2D array representing what the player sees when they play the game.
 
 #### Constructor
@@ -63,7 +65,7 @@ Options Interface:
 game.checkCell(/* row */, /* column */); /* --> void */
 ```
 
-Checks a cell for a bomb. If cell does not have a bomb, counts surrounding bombs. If surrounding bomb count is zero, sweeps mine until it has found cells with a bomb count. Returns void i.e. implicit return of undefined.
+Checks a cell for a bomb. If cell does not have a bomb, counts surrounding bombs. If surrounding bomb count is zero, sweeps grid until it has found cells with a bomb count. Returns void i.e. implicit return of undefined.
 
 #### flagCell
 
@@ -80,3 +82,35 @@ game.cellIsFlagged(/* row */, /* column */); /* --> boolean */
 ```
 
 Returns true if cell is flagged and false if not.
+
+#### getNumRows
+
+```javascript
+game.getNumRows(); /* --> integer */
+```
+
+Returns height of underlying matrix i.e. number of rows.
+
+#### getNumColumns
+
+```javascript
+game.getNumColumns(); /* --> integer */
+```
+
+Returns width of underlying matrix i.e. number of columns.
+
+#### getNumBombs
+
+```javascript
+game.getNumBombs(); /* --> integer */
+```
+
+Returns number of bombs in matrix.
+
+#### getGameStatus
+
+```javascript
+game.getGameStatus(); /* --> string */
+```
+
+Returns game status as a string e.g. won, lost, or in-progress.

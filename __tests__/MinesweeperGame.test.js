@@ -1,6 +1,6 @@
 /* eslint-disable no-undef, no-underscore-dangle */
 
-const MinesweeperGame = require('./MinesweeperGame');
+const MinesweeperGame = require('../src/MinesweeperGame');
 
 describe(`MinesweeperGame's private static initializeMatrix method`, () => {
   test('should create a matrix with n rows, m columns, and b bombs.', () => {

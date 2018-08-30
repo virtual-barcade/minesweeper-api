@@ -1,6 +1,6 @@
 /* eslint-disable no-undef, no-underscore-dangle */
 
-const Queue = require('./Queue');
+const Queue = require('../src/Queue');
 
 describe('Queue', () => {
   let queue;

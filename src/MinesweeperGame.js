@@ -38,14 +38,14 @@ class MinesweeperGame {
       this._setBoardState(n, m, b);
     }
 
-    this.status = 'in-progress';
+    this._status = 'in-progress';
     this.grid = this._initializeGrid();
   }
 
   _setBoardState(n, m, b) {
-    this.numRows = n;
-    this.numColumns = m;
-    this.numBombs = b;
+    this._numRows = n;
+    this._numColumns = m;
+    this._numBombs = b;
     this._matrix = MinesweeperGame._initializeMatrix(n, m, b);
   }
 
@@ -118,10 +118,10 @@ class MinesweeperGame {
     return counter;
   }
 
-  _markCellAsVisited(x, y, numBombs) {
+  _markCellAsVisited(x, y, _numBombs) {
     this._matrix[x][y] = 2;
     this._numRevealedCells++;
-    this.grid[x][y] = numBombs.toString();
+    this.grid[x][y] = _numBombs.toString();
   }
 
   /**
@@ -139,8 +139,8 @@ class MinesweeperGame {
         if (cell === undefined || cell === 1 || cell === 2 || cell === 4) {
           continue;
         }
-        const numBombs = this._countBombs(x, y);
-        if (numBombs === 0) {
+        const _numBombs = this._countBombs(x, y);
+        if (_numBombs === 0) {
           q.enqueue([x - 1, y - 1]);
           q.enqueue([x - 1, y]);
           q.enqueue([x - 1, y + 1]);
@@ -150,35 +150,36 @@ class MinesweeperGame {
           q.enqueue([x + 1, y]);
           q.enqueue([x + 1, y + 1]);
         }
-        this._markCellAsVisited(x, y, numBombs);
+        this._markCellAsVisited(x, y, _numBombs);
       }
     }
   }
 
   _gameWon() {
     const remainingCells =
-      this.numRows * this.numColumns - this._numRevealedCells;
+      this._numRows * this._numColumns - this._numRevealedCells;
 
-    return remainingCells === this.numBombs;
+    return remainingCells === this._numBombs;
   }
 
-  checkCell(row, col) {
-    if (this.status === 'in-progress') {
-      const cell = this._matrix[row][col];
-      if (cell === 1 || cell === 4) {
-        this.status = 'lost';
-        this._revealGrid();
-      }
-      this._sweep(row, col);
-      if (this._gameWon()) {
-        this.status = 'won';
-        this._revealGrid();
-      }
-    }
+  getNumRows() {
+    return this._numRows;
+  }
+
+  getNumColumns() {
+    return this._numColumns;
+  }
+
+  getNumBombs() {
+    return this._numBombs;
+  }
+
+  getGameStatus() {
+    return this._status;
   }
 
   flagCell(row, col) {
-    if (this.status === 'in-progress') {
+    if (this._status === 'in-progress') {
       const cell = this._matrix[row][col];
       if (cell !== 2) {
         this._matrix[row][col] = this._cellStateToggleMapping[cell];
@@ -190,6 +191,22 @@ class MinesweeperGame {
     const cell = this._matrix[row][col];
     return cell === 3 || cell === 4;
   }
+
+  checkCell(row, col) {
+    if (this._status === 'in-progress') {
+      const cell = this._matrix[row][col];
+      if (cell === 1 || cell === 4) {
+        this._status = 'lost';
+        this._revealGrid();
+      }
+      this._sweep(row, col);
+      if (this._gameWon()) {
+        this._status = 'won';
+        this._revealGrid();
+      }
+    }
+  }
 }
 
 module.exports = MinesweeperGame;
+export default MinesweeperGame;
