@@ -1,6 +1,6 @@
-# Minesweeper
+# Minesweeper API &middot; [![Build Status](https://travis-ci.org/virtual-barcade/minesweeper-api.svg?branch=master)](https://travis-ci.org/virtual-barcade/minesweeper-api)
 
-## Minesweeper Game API / State
+## Game State
 
 The Minesweeper game is internally represented by a 2D array of integers. See below for the range of integer values and their meanings.
 
@@ -18,7 +18,7 @@ The Minesweeper game is internally represented by a 2D array of integers. See be
 
 A client to this API interacts with the internal board state via the public game grid, a 2D array of strings representing what the player sees when they play the game.
 
-### API
+## API
 
 Public Methods:
 
@@ -31,7 +31,7 @@ Public Methods:
 - `getStatus` - Returns game status e.g. won, lost, or in-progress.
 - `getGrid` - Returns a 2D array of strings representing what the player sees when they play the game.
 
-### Usage
+## Usage
 
 ```javascript
 // require statement
