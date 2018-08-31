@@ -18,7 +18,7 @@ The Minesweeper game is internally represented by a 2D array of integers. See be
 
 A client to this API interacts with the internal board state via the public game grid, a 2D array of strings representing what the player sees when they play the game.
 
-### API / Usage
+### API
 
 Public Methods:
 
@@ -28,13 +28,18 @@ Public Methods:
 - `getNumRows` - Returns height of underlying matrix i.e. number of rows.
 - `getNumColumns` - Returns width of underlying matrix i.e. number of columns.
 - `getNumBombs` - Returns number of bombs in matrix.
-- `getGameStatus` - Returns game status e.g. won, lost, or in-progress.
+- `getStatus` - Returns game status e.g. won, lost, or in-progress.
+- `getGrid` - Returns a 2D array of strings representing what the player sees when they play the game.
 
-Public Properties:
+### Usage
 
-- `grid` - A 2D array representing what the player sees when they play the game.
+```javascript
+// require statement
+const MinesweeperGame = require('minesweeper-ultimate');
 
-#### Constructor
+// import statement
+import MinesweeperGame from 'minesweeper-ultimate';
+```
 
 ```javascript
 const game = new MinesweeperGame(/* difficulty */, /* options */);
@@ -59,58 +64,66 @@ Options Interface:
 }
 ```
 
-#### checkCell
-
 ```javascript
 game.checkCell(/* row */, /* column */); /* --> void */
-```
 
+/*
 Checks a cell for a bomb. If cell does not have a bomb, counts surrounding bombs. If surrounding bomb count is zero, sweeps grid until it has found cells with a bomb count. Returns void i.e. implicit return of undefined.
-
-#### flagCell
+*/
+```
 
 ```javascript
 game.flagCell(/* row */, /* column */); /* --> void */
-```
 
+/*
 Updates board state to indicate cell is flagged. Can only flag unvisited cells. Returns void i.e. implicit return of undefined.
-
-#### cellIsFlagged
+*/
+```
 
 ```javascript
 game.cellIsFlagged(/* row */, /* column */); /* --> boolean */
-```
 
+/*
 Returns true if cell is flagged and false if not.
-
-#### getNumRows
+*/
+```
 
 ```javascript
 game.getNumRows(); /* --> integer */
-```
 
+/*
 Returns height of underlying matrix i.e. number of rows.
-
-#### getNumColumns
+*/
+```
 
 ```javascript
 game.getNumColumns(); /* --> integer */
-```
 
+/*
 Returns width of underlying matrix i.e. number of columns.
-
-#### getNumBombs
+*/
+```
 
 ```javascript
 game.getNumBombs(); /* --> integer */
-```
 
+/*
 Returns number of bombs in matrix.
-
-#### getGameStatus
+*/
+```
 
 ```javascript
-game.getGameStatus(); /* --> string */
+game.getStatus(); /* --> string */
+
+/*
+Returns game status as a string e.g. won, lost, or in-progress.
+*/
 ```
 
-Returns game status as a string e.g. won, lost, or in-progress.
+```javascript
+game.getGrid(); /* --> [][]string */
+
+/*
+Returns a 2D array of strings representing what the player sees when they play the game.
+*/
+```

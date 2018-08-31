@@ -39,7 +39,7 @@ class MinesweeperGame {
     }
 
     this._status = 'in-progress';
-    this.grid = this._initializeGrid();
+    this._grid = this._initializeGrid();
   }
 
   _setBoardState(n, m, b) {
@@ -96,11 +96,11 @@ class MinesweeperGame {
       for (let j = 0; j < this._matrix[i].length; j++) {
         const value = this._matrix[i][j];
         if (value === 1 || value === 4) {
-          this.grid[i][j] = 'B';
+          this._grid[i][j] = 'B';
         }
       }
     }
-    return this.grid;
+    return this._grid;
   }
 
   _countBombs(row, col) {
@@ -118,10 +118,10 @@ class MinesweeperGame {
     return counter;
   }
 
-  _markCellAsVisited(x, y, _numBombs) {
+  _markCellAsVisited(x, y, numbBombs) {
     this._matrix[x][y] = 2;
     this._numRevealedCells++;
-    this.grid[x][y] = _numBombs.toString();
+    this._grid[x][y] = numbBombs.toString();
   }
 
   /**
@@ -139,8 +139,8 @@ class MinesweeperGame {
         if (cell === undefined || cell === 1 || cell === 2 || cell === 4) {
           continue;
         }
-        const _numBombs = this._countBombs(x, y);
-        if (_numBombs === 0) {
+        const numbBombs = this._countBombs(x, y);
+        if (numbBombs === 0) {
           q.enqueue([x - 1, y - 1]);
           q.enqueue([x - 1, y]);
           q.enqueue([x - 1, y + 1]);
@@ -150,7 +150,7 @@ class MinesweeperGame {
           q.enqueue([x + 1, y]);
           q.enqueue([x + 1, y + 1]);
         }
-        this._markCellAsVisited(x, y, _numBombs);
+        this._markCellAsVisited(x, y, numbBombs);
       }
     }
   }
@@ -174,8 +174,12 @@ class MinesweeperGame {
     return this._numBombs;
   }
 
-  getGameStatus() {
+  getStatus() {
     return this._status;
+  }
+
+  getGrid() {
+    return this._grid;
   }
 
   flagCell(row, col) {

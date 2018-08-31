@@ -25,7 +25,7 @@ describe(`MinesweeperGame's private static initializeMatrix method`, () => {
 
 describe(`MinesweeperGame's initializeGrid method`, () => {
   test('should return a grid representation of the input matrix as an N x M 2D array of underscore strings.', () => {
-    const { grid } = new MinesweeperGame('easy');
+    const game = new MinesweeperGame('easy');
     // prettier-ignore
     const expected = [
       ['_', '_', '_', '_', '_', '_', '_', '_', '_'],
@@ -38,7 +38,7 @@ describe(`MinesweeperGame's initializeGrid method`, () => {
       ['_', '_', '_', '_', '_', '_', '_', '_', '_'],
       ['_', '_', '_', '_', '_', '_', '_', '_', '_'],
     ];
-    expect(grid).toEqual(expected);
+    expect(game.getGrid()).toEqual(expected);
   });
 });
 
@@ -110,7 +110,7 @@ describe(`MinesweeperGame's checkCell method`, () => {
       ['_', '_', '_', '_', '_', '_', '_', '_', '_'],
       ['_', '_', '_', '_', '_', '_', '_', '_', '_'],
     ];
-    expect(game.grid).toEqual(expected);
+    expect(game.getGrid()).toEqual(expected);
   });
 
   test('should return a grid showing the number of bombs surrounding the input cell if input cell is not a bomb.', () => {
@@ -128,7 +128,7 @@ describe(`MinesweeperGame's checkCell method`, () => {
       ['_', '_', '_', '_', '_', '_', '_', '1', '_'],
       ['_', '_', '_', '_', '_', '_', '_', '_', '_'],
     ];
-    expect(game.grid).toEqual(expected);
+    expect(game.getGrid()).toEqual(expected);
   });
 
   test('should return a grid revealing the bombs if input cell is a bomb.', () => {
@@ -147,7 +147,7 @@ describe(`MinesweeperGame's checkCell method`, () => {
       ['_', 'B', '_', '_', '_', '_', 'B', '_', '_'],
       ['_', '_', '_', '_', '_', '_', '_', '_', '_'],
     ];
-    expect(game.grid).toEqual(expected);
+    expect(game.getGrid()).toEqual(expected);
   });
 });
 
@@ -190,7 +190,7 @@ describe(`MinesweeperGame's sweep method`, () => {
       [0, 1, 2, 2, 2, 2, 1, 0, 0],
       [0, 0, 2, 2, 2, 2, 0, 0, 0],
     ];
-    expect(game.grid).toEqual(expectedGrid);
+    expect(game.getGrid()).toEqual(expectedGrid);
     expect(game._matrix).toEqual(expectedMatrix);
   });
 
@@ -232,7 +232,7 @@ describe(`MinesweeperGame's sweep method`, () => {
       [2, 2, 2, 1, 0, 0, 2, 2, 2],
       [2, 2, 2, 1, 0, 1, 1, 2, 2],
     ];
-    expect(game.grid).toEqual(expectedGrid);
+    expect(game.getGrid()).toEqual(expectedGrid);
     expect(game._matrix).toEqual(expectedMatrix);
   });
 });
