@@ -5,7 +5,6 @@
   "main": "dist/index.js",
   "author": "virtual-barcade",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "npm-run-all --parallel build:*",
